@@ -1593,24 +1593,12 @@ const data = [
 //While chaining array methods,filter the card set by sets with at least 200 cards and print those set names and card count totals after sorting by total card count
 
 function test(data) {
-  const sorted = [];
-  let number = 0
   data
     .filter((set) => set.cardCount.total >= 200)
+    .sort((a, b) => a.cardCount.total - b.cardCount.total)
     .forEach((set) => {
-      if (number === 0) {
-        sorted.push(set);
-        number++;
-      } else {
-        let len = sorted.length - 1;
-        if (sorted[len].cardCount.total > set) {
-          sorted = set + sorted;
-        } else {
-          sorted.push(set);
-        }
-      }
+      console.log(set.name, set.cardCount.total);
     });
-  sorted
 
 }
 

@@ -24,7 +24,7 @@ function booking(guestQueue) {
     guestQueue.forEach((guest) => {
         let name = guest.name;
         let bookedRides = [];
-        let rides = 0;
+        let rides = 1;
         while (rides < max) {
             guest.rideChoices.forEach((guestRide) => {
                 lightningLaneRides.forEach((ride) => {

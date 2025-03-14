@@ -1,6 +1,6 @@
 const lightningLaneRides = [
     { name: "Space Mountain", time: "9:00 AM - 10:00 AM", availableSpots: 8 },
-    { name: "Big Thunder Mountain", time: "10:30 AM - 11:30 AM", availableSpots: 5 },
+    { name: "Big Thunder Mountain", time: "10:00 AM - 11:30 AM", availableSpots: 5 },
     { name: "Splash Mountain", time: "12:00 PM - 1:00 PM", availableSpots: 4 },
     { name: "Pirates of the Caribbean", time: "1:30 PM - 2:30 PM", availableSpots: 6 },
     { name: "Haunted Mansion", time: "3:00 PM - 4:00 PM", availableSpots: 7 },
@@ -18,30 +18,47 @@ const guestQueue = [
     { name: "Ryan", partySize: 3, rideChoices: ["Peter Pan's Flight", "Splash Mountain", "Guardians of the Galaxy: Cosmic Rewind"] }
 ];
 
+function getTime(timeFrame1) {
+    let [start, finish] = timeFrame1.split(" - ", 2);
+    console.log(start, finish);
+    let [hours, minutes] = start.split(":", 2);
+    let minutesFinal = minutes.split(" ", 1);
+    hours = parseInt(hours);
+    minutes = parseInt(minutesFinal);
+    console.log(hours, minutes);
+    start = [hours, minutes];
+}
+
+getTime("10:00 PM - 11:00 PM")
+
 function booking(guestQueue) {
     let bookings = [];
     const max = 3;
     guestQueue.forEach((guest) => {
         let name = guest.name;
         let bookedRides = [];
-        let rides = 1;
-        while (rides < max) {
-            guest.rideChoices.forEach((guestRide) => {
-                lightningLaneRides.forEach((ride) => {
-                    if (ride.name === guestRide) {
-                        if (ride.availableSpots >= guest.partySize) {
+        console.log(name, bookedRides);
+        let guestBooking = { name: name, bookedRides: bookedRides };
+        console.log(guestBooking);
+        let rides = 0;
+        guest.rideChoices.forEach((guestRide) => {
+            lightningLaneRides.forEach((ride) => {
+                if (ride.name === guestRide) {
+                    if (ride.availableSpots >= guest.partySize) {
+                        if (rides < max) {
                             bookedRides.push({ name: ride.name, time: ride.time });
+                            rides++;
+                            console.log(rides);
+                            console.log(bookedRides);
                             ride.availableSpots = ride.availableSpots - guest.partySize;
                         }
-                    }
-                })
+                    } else { };
+                } else { };
             });
-            rides++;
-        }
-        let guestBooking = { name: name, bookedRides: bookedRides };
+        });
+        guestBooking = { name: name, bookedRides: bookedRides };
         bookings.push(guestBooking);
-    })
+        console.log(guestBooking);
+    });
     console.log(bookings);
 }
-
-booking(guestQueue);
